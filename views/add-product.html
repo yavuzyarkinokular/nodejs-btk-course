@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shopping</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <!-- Navbar Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a href="/" class="navbar-brand">Shopping</a>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href=""> Login</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href=""> Register</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- Navbar Header Bitiş -->
+
+    <div class="container" style="padding-top: 100px">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="list-group">
+            <a href="" class="list-group-item">Category 1 </a>
+            <a href="" class="list-group-item">Category 2 </a>
+            <a href="" class="list-group-item">Category 3 </a>
+          </div>
+        </div>
+        <div class="col-lg-9">
+          <!-- Carousel -->
+          <form action="/admin/add-product" method="POST">
+            <!-- Form Label -->
+            <div class="form-group row">
+              <label for="productName" class="col-sm2 col-form-label">
+                Name:</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="productName"
+                  name="productName"
+                />
+              </div>
+            </div>
+            <!-- Form Button -->
+            <div class="form-group row ">
+              <div class="col-sm-10">
+                <input class="btn btn-primary" type="submit" value="Save Product"> </button>
+              </div>
+            </div>
+          </form>
+
+          <!-- CarouselBitiş -->
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap Scripts -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+      integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Bootstrap Scripts Bitiş -->
+  </body>
+</html>
+<!-- 
+  Serverda gelen veriyi elde etmek için name kısmına girilen ismi kullanıyoruz id fronttaki ismi 
+  3 tane fotoğraf olduğu için 2 kere next yapabilecek kullanıcı o yüzden 2 tane geçiş butonu eklıyoruz
+ -->
