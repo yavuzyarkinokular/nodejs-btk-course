@@ -7,9 +7,9 @@ const userRoutes = require("./routes/user.js"); // Ana dizin olan index.html yö
 const adminRoutes = require("./routes/admin.js"); // add-product olan kısım
 /* ---- Import Bitiş ---   */
 
-/* ---- Controler ---   */
+/* ---- Error Controler ---   */
 const errorController = require("./controllers/errors.js");
-/* ---- Controller Bitiş ---   */
+/* ----  Error Controller Bitiş ---   */
 
 /* ---- Pug Dosyalar ---- */
 app.set("view engine", "pug");
