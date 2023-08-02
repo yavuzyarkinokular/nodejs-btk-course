@@ -8,8 +8,8 @@ const router = express.Router();
 
 /* ---- router.get ---   */
 
-router.get("/add-product", (req, res) => {
-  res.sendFile(path.join(__dirname, "../", "views", "add-product.html"));
+router.get("/add-product", (req, res, next) => {
+  res.render("add-product", { title: "Add a New Product" });
 });
 
 /* ---- router.get bitiş ---   */

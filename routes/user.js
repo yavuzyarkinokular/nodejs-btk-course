@@ -7,7 +7,7 @@ const router = express.Router();
 /* ---- Import Bitiş ---   */
 
 router.get("/", (req, res) => {
-  res.render("index");
+  res.render("index", { title: "Ana Sayfa" });
 });
 
 module.exports = router;
