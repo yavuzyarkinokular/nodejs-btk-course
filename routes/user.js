@@ -4,16 +4,13 @@ const path = require("path");
 const express = require("express");
 const router = express.Router();
 const admin = require("./admin.js");
+/* ---- Controllers ---- */
+const productsController = require("../controllers/products");
+/* ---- Controllers Bitiş --- */
 
 /* ---- Import Bitiş ---   */
 
-router.get("/", (req, res) => {
-  res.render("index", {
-    title: "Ana Sayfa",
-    products: admin.products,
-    path: "/",
-  });
-});
+router.get("/", productsController.getProducts);
 
 module.exports = router;
 /*
