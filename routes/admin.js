@@ -38,7 +38,10 @@ const products = [
 /* ---- router.get ---   */
 
 router.get("/add-product", (req, res, next) => {
-  res.render("add-product", { title: "Add a New Product" });
+  res.render("add-product", {
+    title: "Add a New Product",
+    path: "/admin/add-product",
+  });
 });
 
 /* ---- router.get bitiş ---   */
