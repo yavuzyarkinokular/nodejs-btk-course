@@ -1,38 +1,14 @@
-/* ---- Products ---- */
-const products = [
-  {
-    name: "iPhone 11",
-    price: "50225",
-    image: "1.jpeg",
-    description: " Ekranı en büyük telefon ",
-  },
-  {
-    name: "iPhone 12",
-    price: 50225,
-    image: "2.jpeg",
-    description: " Ekranı en büyük telefon ",
-  },
-  {
-    name: "iPhone 13",
-    price: 50225,
-    image: "3.jpeg",
-    description: " Ekranı en büyük telefon ",
-  },
-  {
-    name: "iPhone 14",
-    price: 50225,
-    image: "4.jpeg",
-    description: " Ekranı en büyük telefon ",
-  },
-];
-/* ---- Products Bitiş ----  */
+/* ---- Models ----  */
+const Product = require("../models/products.js");
+/* ---- Models Bitiş ----  */
 
 /* ---- getProducts ----  */
 
 exports.getProducts = (req, res) => {
+  const getAllProduct = Product.getAll();
   res.render("index", {
     title: "Ana Sayfa",
-    products: products,
+    products: getAllProduct,
     path: "/",
   });
 };
@@ -51,13 +27,13 @@ exports.getAddProduct = (req, res, next) => {
 /* ---- postAddProduct ----  */
 
 exports.postAddProduct = (req, res) => {
-  products.push({
-    name: req.body.name,
-    price: req.body.price,
-    image: req.body.image,
-    description: req.body.description,
-  });
-  console.log(req.body);
+  const product = new Product(
+    req.body.name,
+    req.body.price,
+    req.body.imageUrl,
+    req.body.description
+  );
+  product.saveProduct();
   res.redirect("/"); // işlem bitince kullanıcıyı istediğimiz dizine yönlendirmeye yarar
 };
 /* ---- postAddProduct Bitiş ----  */
