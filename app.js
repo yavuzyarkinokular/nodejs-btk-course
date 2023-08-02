@@ -5,7 +5,7 @@ const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
 const userRoutes = require("./routes/user.js"); // Ana dizin olan index.html yönlendirmesini burada yapıyoruz
-const adminRoutes = require("./routes/admin.js"); // add-product olan kısım
+const admin = require("./routes/admin.js"); // add-product olan kısım
 /* ---- Pug Dosyalar ---- */
 app.set("view engine", "pug");
 app.set("views", "./views");
@@ -16,7 +16,7 @@ app.set("views", "./views");
 /* ---- MiddlWare ----  */
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: false })); // !!! Açıklaması detaylıca en aşağıda !!!
-app.use("/admin", adminRoutes); // url 'e /admin eklentisini bu şekilde yapıyoruz
+app.use("/admin", admin.routes); // url 'e /admin eklentisini bu şekilde yapıyoruz
 app.use(userRoutes);
 app.use((req, res) => {
   res.status(404).render("404", { title: "404 Error" }); // 404 'hatasında sayfa yönlendirmesi
