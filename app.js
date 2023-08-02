@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false })); // !!! Açıklaması detayl
 app.use("/admin", adminRoutes); // url 'e /admin eklentisini bu şekilde yapıyoruz
 app.use(userRoutes);
 app.use((req, res) => {
-  res.status(404).render("404"); // 404 'hatasında sayfa yönlendirmesi
+  res.status(404).render("404", { title: "404 Error" }); // 404 'hatasında sayfa yönlendirmesi
 });
 
 /* ---- MiddlWare Bitiş ----  */
