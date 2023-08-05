@@ -10,8 +10,12 @@ const adminController = require("../controllers/admin");
 /* ---- Controllers Bitiş ---- */
 
 /* ---- Router Get ve Post ---   */
-//router.get("/add-product", productsController.getAddProduct);
-//router.post("/add-product", productsController.postAddProduct);
+router.get("/add-product", adminController.getAddProduct);
+router.post("/add-product", adminController.postAddProduct);
+router.get("/edit-product", adminController.getEditProduct);
+router.post("/edit-product", adminController.postEditProduct);
+router.get("/products", adminController.getProducts);
+
 /* ---- Router Get ve Post bitiş ---   */
 module.exports = router;
 

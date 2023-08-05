@@ -6,10 +6,10 @@ const Product = require("../models/products.js");
 
 exports.getProducts = (req, res) => {
   const getAllProduct = Product.getAll();
-  res.render("index", {
-    title: "Ana Sayfa",
+  res.render("admin/products.pug", {
+    title: "Admin Products",
     products: getAllProduct,
-    path: "/",
+    path: "/admin/products",
   });
 };
 /* ---- getProducts Bitiş ----  */
@@ -17,8 +17,8 @@ exports.getProducts = (req, res) => {
 /* ---- getAddProduct ----  */
 
 exports.getAddProduct = (req, res, next) => {
-  res.render("add-product", {
-    title: "Add a New Product",
+  res.render("admin/add-product", {
+    title: " New Product",
     path: "/admin/add-product",
   });
 };
@@ -38,26 +38,20 @@ exports.postAddProduct = (req, res) => {
 };
 /* ---- postAddProduct Bitiş ----  */
 
-/* ---- getAddProduct ----  */
+/* ---- getEditProduct ----  */
 
-exports.getAddProduct = (req, res, next) => {
-  res.render("add-product", {
-    title: "Add a New Product",
-    path: "/admin/add-product",
+exports.getEditProduct = (req, res, next) => {
+  res.render("admin/edit-product", {
+    title: "Edit Product",
+    path: "/admin/edit-product",
   });
 };
-/* ---- getAddProduct Bitiş ----  */
+/* ---- getEditProduct Bitiş ----  */
 
-/* ---- postAddProduct ----  */
+/* ---- postEditProduct ----  */
 
-exports.postAddProduct = (req, res) => {
-  const product = new Product(
-    req.body.name,
-    req.body.price,
-    req.body.imageUrl,
-    req.body.description
-  );
+exports.postEditProduct = (req, res) => {
   product.saveProduct();
   res.redirect("/"); // işlem bitince kullanıcıyı istediğimiz dizine yönlendirmeye yarar
 };
-/* ---- postAddProduct Bitiş ----  */
+/* ---- postEditProduct Bitiş ----  */

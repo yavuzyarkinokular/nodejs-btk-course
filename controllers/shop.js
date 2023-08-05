@@ -29,6 +29,8 @@ exports.getProducts = (req, res) => {
 /* ---- getProductDetails ----  */
 
 exports.getProductDetails = (req, res) => {
+  const getAllProduct = Product.getAll();
+
   res.render("shop/details", {
     title: "Details",
     products: getAllProduct,
@@ -40,6 +42,8 @@ exports.getProductDetails = (req, res) => {
 /* ---- getCart ----  */
 
 exports.getCart = (req, res) => {
+  const getAllProduct = Product.getAll();
+
   res.render("shop/cart", {
     title: "Cart",
     products: getAllProduct,
@@ -51,6 +55,8 @@ exports.getCart = (req, res) => {
 /* ---- getOrders ----  */
 
 exports.getOrders = (req, res) => {
+  const getAllProduct = Product.getAll();
+
   res.render("shop/orders", {
     title: "Orders",
     products: getAllProduct,
