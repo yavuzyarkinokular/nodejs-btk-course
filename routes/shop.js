@@ -3,14 +3,17 @@
 const path = require("path");
 const express = require("express");
 const router = express.Router();
-const admin = require("./admin.js");
 /* ---- Controllers ---- */
-const productsController = require("../controllers/products");
+const shopController = require("../controllers/shop");
 /* ---- Controllers Bitiş --- */
 
 /* ---- Import Bitiş ---   */
 
-router.get("/", productsController.getProducts);
+router.get("/", shopController.getIndex);
+router.get("/products", shopController.getProduct);
+router.get("/details", shopController.getProductDetails);
+router.get("/cart", shopController.getCart);
+router.get("/orders", shopController.getOrders);
 
 module.exports = router;
 /*

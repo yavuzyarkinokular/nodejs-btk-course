@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
-const userRoutes = require("./routes/user.js"); // Ana dizin olan index.html yönlendirmesini burada yapıyoruz
+const userRoutes = require("./routes/shop.js"); // Ana dizin olan index.html yönlendirmesini burada yapıyoruz
 const adminRoutes = require("./routes/admin.js"); // add-product olan kısım
 /* ---- Import Bitiş ---   */
 

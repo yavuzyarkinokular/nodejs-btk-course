@@ -1,18 +1,17 @@
 /* ---- Import ---   */
 
-const path = require("path");
 const express = require("express");
 const router = express.Router();
 
 /* ---- Import  Bitiş ---   */
 
 /* ---- Controllers ---- */
-const productsController = require("../controllers/products");
+const adminController = require("../controllers/admin");
 /* ---- Controllers Bitiş ---- */
 
 /* ---- Router Get ve Post ---   */
-router.get("/add-product", productsController.getAddProduct);
-router.post("/add-product", productsController.postAddProduct);
+//router.get("/add-product", productsController.getAddProduct);
+//router.post("/add-product", productsController.postAddProduct);
 /* ---- Router Get ve Post bitiş ---   */
 module.exports = router;
 
