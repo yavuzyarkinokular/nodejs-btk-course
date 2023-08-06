@@ -40,6 +40,7 @@ exports.getProductsByCategoryId = (req, res) => {
     title: "Products",
     products: getAllProduct,
     categories: getAllCategory,
+    selectedCategory: categoryid,
     path: "/products",
   });
 };
