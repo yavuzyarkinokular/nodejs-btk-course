@@ -26,23 +26,26 @@ exports.getProducts = (req, res) => {
 };
 /* ---- getProducts Bitiş ----  */
 
-/* ---- getProducts ----  */
+/* ---- getProduct ----  */
+// Id bilgisi alarak kullanıcıyı seçtiği ürüne yönlendirme
 
 exports.getProduct = (req, res) => {
-  const productId = req.params.productid;
-  console.log(Product.getById(productId));
+  const product = Product.getById(req.params.productid);
+  res.render("shop/product-detail", {
+    title: product.name,
+    product: product,
+    path: "/products",
+  });
   res.redirect("/");
 };
-/* ---- getProducts Bitiş ----  */
+/* ---- getProduct Bitiş ----  */
 
 /* ---- getProductDetails ----  */
 
 exports.getProductDetails = (req, res) => {
-  const getAllProduct = Product.getAll();
-
   res.render("shop/details", {
     title: "Details",
-    products: getAllProduct,
+    products: Product.getAll(),
     path: "/details",
   });
 };
