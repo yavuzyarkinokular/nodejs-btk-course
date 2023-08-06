@@ -1,14 +1,17 @@
 /* ---- Models ----  */
 const Product = require("../models/products.js");
+const Category = require("../models/category.js");
 /* ---- Models Bitiş ----  */
 
 /* ---- getIndex ----  */
 
 exports.getIndex = (req, res) => {
   const getAllProduct = Product.getAll();
+  const getAllCategory = Category.getAll();
   res.render("shop/index", {
     title: "Shopping",
     products: getAllProduct,
+    categories: getAllCategory,
     path: "/",
   });
 };
@@ -18,9 +21,11 @@ exports.getIndex = (req, res) => {
 
 exports.getProducts = (req, res) => {
   const getAllProduct = Product.getAll();
+  const getAllCategory = Category.getAll();
   res.render("shop/products", {
     title: "Products",
     products: getAllProduct,
+    categories: getAllCategory,
     path: "/products",
   });
 };
