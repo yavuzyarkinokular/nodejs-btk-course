@@ -5,16 +5,9 @@ html(lang="en")
     body
         include ../includes/navbar.pug
 
-        .container.pt-100
-            .row
-                .col-lg-3
-                    include ../includes/menu.pug
-                   
-                .col-lg-9
+        .container.pt-100.mb-5 
 
-                   block content
+            block content
            
 
-            script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js")
-            script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js") 
-            script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js") 
+        include ../includes/scripts.pug

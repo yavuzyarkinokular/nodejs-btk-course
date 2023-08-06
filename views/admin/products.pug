@@ -9,19 +9,19 @@ block content
         table.table-bordered
             thead
                 tr 
-                    th Image    
-                    th Product Name    
+                    th(style='width:100px') Image    
+                    th(style='width:100px') Product Name    
                     th Price    
-                    th 
+                    th(style='width:133') Edit / Delete
             tbody
                 each product in products
                     tr  
                         td
-                            img(src=`/img/${product.imageUrl}`,width='200px')
+                            img(src=`/img/${product.imageUrl}`,width='80px')
                         td #{product.name}
                         td #{product.price} TL 
                         td  
-                            a.btn.btn-primary.btn-sm(href=`/admin/products/${product.id}`) Edit
+                            a.btn.btn-primary.btn-sm.mr-2(href=`/admin/products/${product.id}`) Edit
 
                             form(action='/admin/delete-product' method='POST')
                                 input(type='hidden' name='productid' value=`${product.id}`)
