@@ -5,12 +5,14 @@ const products = [
     price: "5500",
     imageUrl: "1.jpeg",
     description: "Samsung firmasının ürettiği amiral  gemisi telefondur. ",
+    categroyid: "1",
   },
   {
     id: "12346",
     name: "Samsung s9",
     price: "5750",
     imageUrl: "1.jpeg",
+    categroyid: "1",
     description: "Samsung firmasının ürettiği amiral  gemisi telefondur. ",
   },
   {
@@ -18,6 +20,7 @@ const products = [
     name: "Samsung s13",
     price: "7000",
     imageUrl: "1.jpeg",
+    categroyid: "1",
     description: "Samsung firmasının ürettiği amiral  gemisi telefondur. ",
   },
   {
@@ -25,6 +28,23 @@ const products = [
     name: "Samsung s23 ultra",
     price: "13000",
     imageUrl: "1.jpeg",
+    categroyid: "1",
+    description: "Samsung firmasının ürettiği amiral  gemisi telefondur. ",
+  },
+  {
+    id: "12339",
+    name: "Macbook",
+    price: "13000",
+    imageUrl: "1.jpeg",
+    categroyid: "2",
+    description: "Samsung firmasının ürettiği amiral  gemisi telefondur. ",
+  },
+  {
+    id: "12337",
+    name: "Samsung Bulaşık Makinesi",
+    price: "13000",
+    imageUrl: "1.jpeg",
+    categroyid: "3",
     description: "Samsung firmasının ürettiği amiral  gemisi telefondur. ",
   },
 ];
@@ -45,6 +65,9 @@ module.exports = class Product {
   static getById(id) {
     const product = products.find((i) => i.id == id);
     return product;
+  }
+  static getProductsByCategoryId(id) {
+    return products.filter((i) => i.categroyid === id);
   }
   static Update(product) {
     const index = products.findIndex((i) => i.id == product.id);

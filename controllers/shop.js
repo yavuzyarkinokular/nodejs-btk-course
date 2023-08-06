@@ -30,6 +30,20 @@ exports.getProducts = (req, res) => {
   });
 };
 /* ---- getProducts Bitiş ----  */
+/* ---- getProductsByCategoryId ----  */
+
+exports.getProductsByCategoryId = (req, res) => {
+  const categoryid = req.params.categoryid;
+  const getAllProduct = Product.getProductsByCategoryId(categoryid);
+  const getAllCategory = Category.getAll();
+  res.render("shop/products", {
+    title: "Products",
+    products: getAllProduct,
+    categories: getAllCategory,
+    path: "/products",
+  });
+};
+/* ---- getProductsByCategoryId Bitiş ----  */
 
 /* ---- getProduct ----  */
 // Id bilgisi alarak kullanıcıyı seçtiği ürüne yönlendirme
