@@ -41,17 +41,26 @@ exports.postAddProduct = (req, res) => {
 /* ---- getEditProduct ----  */
 
 exports.getEditProduct = (req, res, next) => {
+  const product = Product.getById(req.params.productid);
   res.render("admin/edit-product", {
-    title: "Edit Product",
-    path: "/admin/edit-product",
+    title: product.name,
+    product: product,
+    path: "admin/products",
   });
 };
 /* ---- getEditProduct Bitiş ----  */
 
 /* ---- postEditProduct ----  */
+// Veri tabanından gelen bilgiyi güncelleyeceğimiz için req.body.productid dedik
 
 exports.postEditProduct = (req, res) => {
-  product.saveProduct();
-  res.redirect("/"); // işlem bitince kullanıcıyı istediğimiz dizine yönlendirmeye yarar
+  const product = Product.getById(req.body.id);
+  product.name = req.body.name;
+  product.price = req.body.price;
+  product.imageUrl = req.body.imageUrl;
+  product.description = req.body.description;
+
+  Product.Update(product);
+  res.redirect("/admin/products"); // işlem bitince kullanıcıyı istediğimiz dizine yönlendirmeye yarar
 };
 /* ---- postEditProduct Bitiş ----  */
