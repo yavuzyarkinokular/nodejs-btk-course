@@ -5,11 +5,11 @@ const Product = require("../models/products.js");
 /* ---- getProducts ----  */
 
 exports.getProducts = (req, res) => {
-  const getAllProduct = Product.getAll();
   res.render("admin/products.pug", {
     title: "Admin Products",
-    products: getAllProduct,
+    products: Product.getAll(),
     path: "/admin/products",
+    action: req.query.action,
   });
 };
 /* ---- getProducts Bitiş ----  */
@@ -61,6 +61,6 @@ exports.postEditProduct = (req, res) => {
   product.description = req.body.description;
 
   Product.Update(product);
-  res.redirect("/admin/products"); // işlem bitince kullanıcıyı istediğimiz dizine yönlendirmeye yarar
+  res.redirect("/admin/products?action=edit"); // işlem bitince kullanıcıyı istediğimiz dizine yönlendirmeye yarar
 };
 /* ---- postEditProduct Bitiş ----  */
