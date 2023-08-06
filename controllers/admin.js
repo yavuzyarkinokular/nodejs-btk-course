@@ -1,5 +1,6 @@
 /* ---- Models ----  */
 const Product = require("../models/products.js");
+const Category = require("../models/category.js");
 /* ---- Models Bitiş ----  */
 
 /* ---- getProducts ----  */
@@ -17,8 +18,11 @@ exports.getProducts = (req, res) => {
 /* ---- getAddProduct ----  */
 
 exports.getAddProduct = (req, res, next) => {
+  const categoryGetAll = Category.getAll();
+  console.log(categoryGetAll);
   res.render("admin/add-product", {
     title: " New Product",
+    categories: categoryGetAll,
     path: "/admin/add-product",
   });
 };
