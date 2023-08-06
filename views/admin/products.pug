@@ -17,6 +17,6 @@ block content
                             td #{product.name}
                             td #{product.price} TL 
                             td  
-                                a.btn.btn-primary.btn-sm(href='/details/1') Details
+                                a.btn.btn-primary.btn-sm(href=`/admin/products/${product.id}`) Details
         else 
             h1 No Products 

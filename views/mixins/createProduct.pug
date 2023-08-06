@@ -4,14 +4,15 @@ mixin createProduct(product)
             img(src= `/img/${product.imageUrl}` alt="").card-img-top
             .card-body
                 h4.card-title
-                    a(href="#") #{product.name}
+                    a(href=`/products/${product.id}`) #{product.name}
                 
-                p.card-text.pt-2 #{product.description} 
-            
-            .card-footer
                 small.text-muted
                     i.fas.fa-lira-sign #{product.price} 
+            
+            .card-footer.text.center
+                
 
-                a(href="#").btn.btn-outline-primary.btn-sm.float-right
-                    i.fa.fa-angle-double-right Add to Cart 
+                a(href=`/products/${product.id}`).btn.btn-outline-primary.btn-sm  Details 
+
+                a(href="#").btn.btn-outline-primary.btn-sm.ml-3  Add to Cart   
     
