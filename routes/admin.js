@@ -15,6 +15,7 @@ router.get("/add-product", adminController.getAddProduct);
 router.post("/add-product", adminController.postAddProduct);
 router.get("/products/:productid", adminController.getEditProduct); //edit-get
 router.post("/products", adminController.postEditProduct); //edit-post
+router.post("/delete-product", adminController.postDeleteProduct);
 
 /* ---- Router Get ve Post bitiş ---   */
 module.exports = router;

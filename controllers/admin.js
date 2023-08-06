@@ -64,3 +64,10 @@ exports.postEditProduct = (req, res) => {
   res.redirect("/admin/products?action=edit"); // işlem bitince kullanıcıyı istediğimiz dizine yönlendirmeye yarar
 };
 /* ---- postEditProduct Bitiş ----  */
+
+/* ---- postDeleteProduct  ----  */
+exports.postDeleteProduct = (req, res) => {
+  const product = Product.deleteById(req.body.productid);
+  res.redirect("/admin/products?action=deleted");
+};
+/* ---- postDeleteProduct  Bitiş----  */
