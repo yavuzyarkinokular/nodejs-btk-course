@@ -26,6 +26,15 @@ exports.getProducts = (req, res) => {
 };
 /* ---- getProducts Bitiş ----  */
 
+/* ---- getProducts ----  */
+
+exports.getProduct = (req, res) => {
+  const productId = req.params.productid;
+  console.log(Product.getById(productId));
+  res.redirect("/");
+};
+/* ---- getProducts Bitiş ----  */
+
 /* ---- getProductDetails ----  */
 
 exports.getProductDetails = (req, res) => {
