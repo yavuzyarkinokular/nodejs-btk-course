@@ -5,6 +5,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const userRoutes = require("./routes/shop.js"); // Ana dizin olan index.html yönlendirmesini burada yapıyoruz
 const adminRoutes = require("./routes/admin.js"); // add-product olan kısım
+const connection = require("./utility/database.js"); //databaes
 /* ---- Import Bitiş ---   */
 
 /* ---- Error Controler ---   */
@@ -15,6 +16,16 @@ const errorController = require("./controllers/errors.js");
 app.set("view engine", "pug");
 app.set("views", "./views");
 /* ---- Pug Dosyalar Bitiş ---- */
+
+/* ---- Veritabanına Bağlanma ---- */
+connection
+  .execute("SELECT * FROM products")
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((err) => {
+    console.log(err);
+  }); /* ---- Veritabanına Bağlanma Bitiş ---- */
 
 /* ---- MiddlWare ----  */
 app.use(express.static(path.join(__dirname, "public")));
@@ -29,7 +40,6 @@ app.listen(3000, () => {
   console.log("listening port number is 3000");
 });
 /* ---- Port Numarası Belirleme Bitiş ---- */
-
 /*
             ------- NOTLAR -------
             _bodyParser.urlencoded({extended:false})_
