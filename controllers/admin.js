@@ -51,12 +51,17 @@ exports.postAddProduct = (req, res) => {
 /* ---- getEditProduct ----  */
 
 exports.getEditProduct = (req, res, next) => {
-  const product = Product.getById(req.params.productid);
-  res.render("admin/edit-product", {
-    title: product.name,
-    product: product,
-    path: "admin/products",
-  });
+  Product.getById(req.params.productid)
+    .then((products) => {
+      res.render("admin/edit-product", {
+        title: products[0][0].name, //0 ıncı indeksin 0 ıncı indeksindeki elemanını al anlmaına gelir
+        product: products[0][0],
+        path: "/products",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 /* ---- getEditProduct Bitiş ----  */
 

@@ -10,7 +10,11 @@ module.exports = class Product {
   static getAll() {
     return connection.execute("SELECT * FROM products");
   }
-  static getById(id) {}
+  static getById(id) {
+    return connection.execute("SELECT * FROM products WHERE products.id=?", [
+      id,
+    ]);
+  }
   static getProductsByCategoryId(id) {}
   static Update(product) {}
   static deleteById(id) {}

@@ -59,13 +59,17 @@ exports.getProductsByCategoryId = (req, res) => {
 // Id bilgisi alarak kullanıcıyı seçtiği ürüne yönlendirme
 
 exports.getProduct = (req, res) => {
-  const product = Product.getById(req.params.productid);
-  res.render("shop/product-detail", {
-    title: product.name,
-    product: product,
-    path: "/products",
-  });
-  res.redirect("/");
+  Product.getById(req.params.productid)
+    .then((products) => {
+      res.render("shop/product-detail", {
+        title: products[0][0].name, //0 ıncı indeksin 0 ıncı indeksindeki elemanını al anlmaına gelir
+        product: products[0][0],
+        path: "/products",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 /* ---- getProduct Bitiş ----  */
 
