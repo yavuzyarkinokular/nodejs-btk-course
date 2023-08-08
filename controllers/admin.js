@@ -6,12 +6,18 @@ const Category = require("../models/category.js");
 /* ---- getProducts ----  */
 
 exports.getProducts = (req, res) => {
-  res.render("admin/products.pug", {
-    title: "Admin Products",
-    products: Product.getAll(),
-    path: "/admin/products",
-    action: req.query.action,
-  });
+  Product.getAll()
+    .then((products) => {
+      res.render("admin/products", {
+        title: "Admin Products",
+        products: products[0],
+        action: req.query.action,
+        path: "/",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 /* ---- getProducts Bitiş ----  */
 

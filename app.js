@@ -17,16 +17,6 @@ app.set("view engine", "pug");
 app.set("views", "./views");
 /* ---- Pug Dosyalar Bitiş ---- */
 
-/* ---- Veritabanına Bağlanma ---- */
-connection
-  .execute("SELECT * FROM products")
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((err) => {
-    console.log(err);
-  }); /* ---- Veritabanına Bağlanma Bitiş ---- */
-
 /* ---- MiddlWare ----  */
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: false })); // !!! Açıklaması detaylıca en aşağıda !!!

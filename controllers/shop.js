@@ -4,30 +4,39 @@ const Category = require("../models/category.js");
 /* ---- Models Bitiş ----  */
 
 /* ---- getIndex ----  */
-
 exports.getIndex = (req, res) => {
-  const getAllProduct = Product.getAll();
   const getAllCategory = Category.getAll();
-  res.render("shop/index", {
-    title: "Shopping",
-    products: getAllProduct,
-    categories: getAllCategory,
-    path: "/",
-  });
+  Product.getAll()
+    .then((products) => {
+      res.render("shop/index", {
+        title: "Shopping",
+        products: products[0],
+        categories: getAllCategory,
+        path: "/",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 /* ---- getIndex Bitiş ----  */
 
 /* ---- getProducts ----  */
 
 exports.getProducts = (req, res) => {
-  const getAllProduct = Product.getAll();
   const getAllCategory = Category.getAll();
-  res.render("shop/products", {
-    title: "Products",
-    products: getAllProduct,
-    categories: getAllCategory,
-    path: "/products",
-  });
+  Product.getAll()
+    .then((products) => {
+      res.render("shop/products", {
+        title: "Products",
+        products: products[0],
+        categories: getAllCategory,
+        path: "/",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 /* ---- getProducts Bitiş ----  */
 /* ---- getProductsByCategoryId ----  */
