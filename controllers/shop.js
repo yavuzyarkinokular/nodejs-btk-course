@@ -31,7 +31,7 @@ exports.getProducts = (req, res) => {
         title: "Products",
         products: products[0],
         categories: getAllCategory,
-        path: "/",
+        path: "/products",
       });
     })
     .catch((err) => {

@@ -12,7 +12,7 @@ exports.getProducts = (req, res) => {
         title: "Admin Products",
         products: products[0],
         action: req.query.action,
-        path: "/",
+        path: "/admin/products",
       });
     })
     .catch((err) => {
