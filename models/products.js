@@ -1,12 +1,18 @@
 const connection = require("../utility/database.js");
 module.exports = class Product {
-  constructor(name, price, imgUrl, description) {
+  constructor(name, price, imageUrl, description) {
     this.name = name;
     this.price = price;
     this.imageUrl = imageUrl;
     this.description = description;
   }
-  saveProduct() {}
+  saveProduct() {
+    return connection.execute(
+      "INSERT INTO products (name, price, imageUrl, description) VALUES (?, ?, ?, ?)",
+      [this.name, this.price, this.imageUrl, this.description]
+    );
+  }
+
   static getAll() {
     return connection.execute("SELECT * FROM products");
   }

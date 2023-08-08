@@ -37,14 +37,21 @@ exports.getAddProduct = (req, res, next) => {
 /* ---- postAddProduct ----  */
 
 exports.postAddProduct = (req, res) => {
-  const product = new Product(
-    req.body.name,
-    req.body.price,
-    req.body.imageUrl,
-    req.body.description
-  );
-  product.saveProduct();
-  res.redirect("/"); // işlem bitince kullanıcıyı istediğimiz dizine yönlendirmeye yarar
+  const product = new Product();
+  product.name = req.body.name;
+  product.price = req.body.price;
+  product.imageUrl = req.body.imageUrl;
+  product.categoryid = req.body.categoryid;
+  product.description = req.body.description;
+
+  product
+    .saveProduct()
+    .then(() => {
+      res.redirect("/"); // İşlem tamamlandığında kullanıcıyı istediğiniz sayfaya yönlendirin
+    })
+    .catch((err) => {
+      console.error("Hata:", err);
+    });
 };
 /* ---- postAddProduct Bitiş ----  */
 
