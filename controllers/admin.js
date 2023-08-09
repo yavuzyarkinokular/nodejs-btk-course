@@ -38,27 +38,6 @@ exports.getAddProduct = (req, res, next) => {
 };
 /* ---- getAddProduct Bitiş ----  */
 
-/* ---- postAddProduct ----  */
-
-exports.postAddProduct = (req, res) => {
-  const product = new Product();
-  product.name = req.body.name;
-  product.price = req.body.price;
-  product.imageUrl = req.body.imageUrl;
-  product.categoryid = req.body.categoryid;
-  product.description = req.body.description;
-
-  product
-    .saveProduct()
-    .then(() => {
-      res.redirect("/"); // İşlem tamamlandığında kullanıcıyı istediğiniz sayfaya yönlendirin
-    })
-    .catch((err) => {
-      console.error("postadd", err);
-    });
-};
-/* ---- postAddProduct Bitiş ----  */
-
 /* ---- getEditProduct ----  */
 
 exports.getEditProduct = (req, res, next) => {
@@ -82,6 +61,27 @@ exports.getEditProduct = (req, res, next) => {
     });
 };
 /* ---- getEditProduct Bitiş ----  */
+
+/* ---- postAddProduct ----  */
+
+exports.postAddProduct = (req, res) => {
+  const product = new Product();
+  product.name = req.body.name;
+  product.price = req.body.price;
+  product.imageUrl = req.body.imageUrl;
+  product.categoryid = req.body.categoryid;
+  product.description = req.body.description;
+
+  product
+    .saveProduct()
+    .then(() => {
+      res.redirect("/"); // İşlem tamamlandığında kullanıcıyı istediğiniz sayfaya yönlendirin
+    })
+    .catch((err) => {
+      console.error("postadd", err);
+    });
+};
+/* ---- postAddProduct Bitiş ----  */
 
 /* ---- postEditProduct ----  */
 // Veri tabanından gelen bilgiyi güncelleyeceğimiz için req.body.productid dedik
