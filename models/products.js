@@ -1,15 +1,16 @@
 const connection = require("../utility/database.js");
 module.exports = class Product {
-  constructor(name, price, imageUrl, description) {
+  constructor(name, price, imageUrl, description, categoryid) {
     this.name = name;
     this.price = price;
     this.imageUrl = imageUrl;
     this.description = description;
+    this.categoryid = categoryid;
   }
   saveProduct() {
     return connection.execute(
-      "INSERT INTO products (name, price, imageUrl, description) VALUES (?, ?, ?, ?)",
-      [this.name, this.price, this.imageUrl, this.description]
+      "INSERT INTO products (name, price, imageUrl, description, categoryid) VALUES (?, ?, ?, ?, ?)",
+      [this.name, this.price, this.imageUrl, this.description, this.categoryid]
     );
   }
 
@@ -24,12 +25,13 @@ module.exports = class Product {
   static getProductsByCategoryId(id) {}
   static Update(product) {
     return connection.execute(
-      "UPDATE products SET products.name=?,products.price=?,products.imageUrl=?,products.description=? WHERE products.id=?",
+      "UPDATE products SET products.name=?,products.price=?,products.imageUrl=?,products.description=?,products.categoryid=? WHERE products.id=?",
       [
         product.name,
         product.price,
         product.imageUrl,
         product.description,
+        product.categoryid,
         product.id,
       ]
     );

@@ -1,33 +1,30 @@
-const categories = [
-  { id: "1", name: " Telefon", description: "Telefon kategorisi ürün" },
-  { id: "2", name: " Bilgisayar", description: "bilgisayar kategorisi ürün" },
-  { id: "3", name: " Beyaz eşya", description: "beyaz eşya kategorisi ürün" },
-];
+const connection = require("../utility/database.js");
 
 module.exports = class Category {
   constructor(name, descripton) {
-    this.id = (categories.length + 1).toString();
     this.name = name;
     this.description = description;
   }
   saveCategory() {
-    //Category e kayıt yapacağımız için push methodu
-    categories.push(this);
+    return connection.execute(
+      "INSERT INTO categories (name,description) VALEUS (?,?)",
+      [this.name, this.description]
+    );
   }
 
   static getAll() {
-    return categories;
+    return connection.execute("SELECT * FROM categories");
   }
   static getById(id) {
-    return categories.find((i) => i.id === id);
+    return connection.execute("SELECT * FROM categories WHERE id=?", [id]);
   }
   static update(category) {
-    const index = categories.findIndex((i) => i.id === category.id);
-    categories[index].name = category.name;
-    categories[index].description = category.description;
+    return connection.execute(
+      "UPDATE categories SET categories.name=?,categories.description=?  ",
+      [category.name, category.description]
+    );
   }
   static delete(id) {
-    const index = categories.findIndex((i) => i.id === category.id);
-    categories.splice(index, 1);
+    return connection.execute("DELETE FROM categories WHERE id=?", [id]);
   }
 };

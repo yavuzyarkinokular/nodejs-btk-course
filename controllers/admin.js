@@ -24,13 +24,17 @@ exports.getProducts = (req, res) => {
 /* ---- getAddProduct ----  */
 
 exports.getAddProduct = (req, res, next) => {
-  const categoryGetAll = Category.getAll();
-  console.log(categoryGetAll);
-  res.render("admin/add-product", {
-    title: " New Product",
-    categories: categoryGetAll,
-    path: "/admin/add-product",
-  });
+  Category.getAll()
+    .then((categories) => {
+      res.render("admin/add-product", {
+        title: " New Product",
+        categories: categories[0],
+        path: "/admin/add-product",
+      });
+    })
+    .catch((err) => {
+      console.log("Hata:", err);
+    });
 };
 /* ---- getAddProduct Bitiş ----  */
 
@@ -60,11 +64,18 @@ exports.postAddProduct = (req, res) => {
 exports.getEditProduct = (req, res, next) => {
   Product.getById(req.params.productid)
     .then((products) => {
-      res.render("admin/edit-product", {
-        title: products[0][0].name, //0 ıncı indeksin 0 ıncı indeksindeki elemanını al anlmaına gelir
-        product: products[0][0],
-        path: "/products",
-      });
+      Category.getAll()
+        .then((categories) => {
+          res.render("admin/edit-product", {
+            title: products[0][0].name, //0 ıncı indeksin 0 ıncı indeksindeki elemanını al anlmaına gelir
+            product: products[0][0],
+            categories: categories[0],
+            path: "/products",
+          });
+        })
+        .catch((err) => {
+          console.log("Hata:", err);
+        });
     })
     .catch((err) => {
       console.log(err);
@@ -81,6 +92,7 @@ exports.postEditProduct = (req, res) => {
   product.price = req.body.price;
   product.imageUrl = req.body.imageUrl;
   product.description = req.body.description;
+  product.categoryid = req.body.categoryid;
   product.id = req.body.id;
 
   Product.Update(product)
@@ -88,7 +100,7 @@ exports.postEditProduct = (req, res) => {
       res.redirect("/admin/products?action=edit"); // işlem bitince kullanıcıyı istediğimiz dizine yönlendirmeye yarar
     })
     .catch((err) => {
-      console.log("Hata:", err);
+      console.log("postedit", err);
     });
 };
 /* ---- postEditProduct Bitiş ----  */

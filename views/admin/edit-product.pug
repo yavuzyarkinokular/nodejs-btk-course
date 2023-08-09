@@ -20,10 +20,16 @@ block content
             .col-sm-10
                 input.form-control#imageUrl(type="text" name="imageUrl" value = `${product.imageUrl}`)  
         .form-group.row
+            label(for="categroyid").col-sm-2.col-form-label Category
+            .col-sm-10
+                select.form-control#categroyid(name="categroyid")
+                    option(value='-1') Select Category
+                    each category in categories 
+                        option(value=`${category.id}`) #{category. name}
+        .form-group.row
             label(for="description").col-sm-2.col-form-label Description
         .col-sm-10
             textarea.form-control(rows='10' cols='30' name="description") #{product.description}
-
         .form-group.row
             .col-sm-10.offset-sm-2
                 input(type="submit" value="Save").btn.btn-primary

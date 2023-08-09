@@ -5,15 +5,18 @@ const Category = require("../models/category.js");
 
 /* ---- getIndex ----  */
 exports.getIndex = (req, res) => {
-  const getAllCategory = Category.getAll();
   Product.getAll()
     .then((products) => {
-      res.render("shop/index", {
-        title: "Shopping",
-        products: products[0],
-        categories: getAllCategory,
-        path: "/",
-      });
+      Category.getAll()
+        .then((categories) => {
+          res.render("shop/index", {
+            title: "Shopping",
+            products: products[0],
+            categories: categories[0],
+            path: "/",
+          });
+        })
+        .catch((err) => {});
     })
     .catch((err) => {
       console.log(err);
@@ -24,15 +27,18 @@ exports.getIndex = (req, res) => {
 /* ---- getProducts ----  */
 
 exports.getProducts = (req, res) => {
-  const getAllCategory = Category.getAll();
   Product.getAll()
     .then((products) => {
-      res.render("shop/products", {
-        title: "Products",
-        products: products[0],
-        categories: getAllCategory,
-        path: "/products",
-      });
+      Category.getAll()
+        .then((categories) => {
+          res.render("shop/products", {
+            title: "Products",
+            products: products[0],
+            categories: categories[0],
+            path: "/products",
+          });
+        })
+        .catch((err) => {});
     })
     .catch((err) => {
       console.log(err);
