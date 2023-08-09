@@ -12,6 +12,7 @@ block content
                     th(style='width:100px') Image    
                     th(style='width:100px') Product Name    
                     th Price    
+                    th Category    
                     th(style='width:133') Edit / Delete
             tbody
                 each product in products
@@ -20,7 +21,8 @@ block content
                             img(src=`/img/${product.imageUrl}`,width='80px')
                         td #{product.name}
                         td #{product.price} TL 
-                        td #{product.categoryid}  
+                        td #{product.categoryid}
+
                         td  
                             a.btn.btn-primary.btn-sm.mr-2(href=`/admin/products/${product.id}`) Edit
 
