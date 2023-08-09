@@ -76,14 +76,20 @@ exports.getEditProduct = (req, res, next) => {
 // Veri tabanından gelen bilgiyi güncelleyeceğimiz için req.body.productid dedik
 
 exports.postEditProduct = (req, res) => {
-  const product = Product.getById(req.body.id);
+  const product = new Product();
   product.name = req.body.name;
   product.price = req.body.price;
   product.imageUrl = req.body.imageUrl;
   product.description = req.body.description;
+  product.id = req.body.id;
 
-  Product.Update(product);
-  res.redirect("/admin/products?action=edit"); // işlem bitince kullanıcıyı istediğimiz dizine yönlendirmeye yarar
+  Product.Update(product)
+    .then(() => {
+      res.redirect("/admin/products?action=edit"); // işlem bitince kullanıcıyı istediğimiz dizine yönlendirmeye yarar
+    })
+    .catch((err) => {
+      console.log("Hata:", err);
+    });
 };
 /* ---- postEditProduct Bitiş ----  */
 
