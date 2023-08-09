@@ -34,5 +34,7 @@ module.exports = class Product {
       ]
     );
   }
-  static deleteById(id) {}
+  static deleteById(id) {
+    return connection.execute("DELETE FROM products WHERE id=?", [id]);
+  }
 };

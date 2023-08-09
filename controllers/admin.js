@@ -95,7 +95,12 @@ exports.postEditProduct = (req, res) => {
 
 /* ---- postDeleteProduct  ----  */
 exports.postDeleteProduct = (req, res) => {
-  const product = Product.deleteById(req.body.productid);
-  res.redirect("/admin/products?action=deleted");
+  const product = Product.deleteById(req.body.productid)
+    .then(() => {
+      res.redirect("/admin/products?action=deleted");
+    })
+    .catch((err) => {
+      console.log("Hata:", err);
+    });
 };
 /* ---- postDeleteProduct  Bitiş----  */
