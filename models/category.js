@@ -2,6 +2,7 @@ const connection = require("../utility/database.js");
 
 module.exports = class Category {
   constructor(name, descripton) {
+    this.id = (categories.length + 1).toString();
     this.name = name;
     this.description = description;
   }

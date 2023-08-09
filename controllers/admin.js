@@ -54,7 +54,7 @@ exports.postAddProduct = (req, res) => {
       res.redirect("/"); // İşlem tamamlandığında kullanıcıyı istediğiniz sayfaya yönlendirin
     })
     .catch((err) => {
-      console.error("Hata:", err);
+      console.error("postadd", err);
     });
 };
 /* ---- postAddProduct Bitiş ----  */
