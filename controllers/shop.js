@@ -6,7 +6,7 @@ const Category = require("../models/category.js");
 /* ---- getIndex ----  */
 exports.getIndex = (req, res) => {
   Product.findAll({
-    attributes: ["id", "name", "price", "imageUrl", "description"],
+    attributes: ["id", "name", "price", "imageUrl"],
   })
     .then((products) => {
       Category.findAll()
@@ -32,7 +32,7 @@ exports.getIndex = (req, res) => {
 
 exports.getProducts = (req, res) => {
   Product.findAll({
-    attributes: ["id", "name", "price", "imageUrl", "description"],
+    attributes: ["id", "name", "price", "imageUrl"],
   })
     .then((products) => {
       Category.findAll()
