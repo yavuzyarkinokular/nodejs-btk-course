@@ -5,28 +5,44 @@ const Category = require("../models/category.js");
 
 /* ---- getIndex ----  */
 exports.getIndex = (req, res) => {
-  res.render("shop/index", {
-    title: "Shopping",
-    path: "/",
-  });
+  Product.findAll()
+    .then((products) => {
+      Category.findAll()
+        .then((categories) => {
+          res.render("shop/index", {
+            title: "Shopping",
+            products: products,
+            categories: categories,
+            path: "/",
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 /* ---- getIndex Bitiş ----  */
 
 /* ---- getProducts ----  */
 
 exports.getProducts = (req, res) => {
-  Product.getAll()
+  Product.findAll()
     .then((products) => {
-      Category.getAll()
+      Category.findAll()
         .then((categories) => {
           res.render("shop/products", {
             title: "Products",
-            products: products[0],
-            categories: categories[0],
-            path: "/products",
+            products: products,
+            categories: categories,
+            path: "/",
           });
         })
-        .catch((err) => {});
+        .catch((err) => {
+          console.log(err);
+        });
     })
     .catch((err) => {
       console.log(err);

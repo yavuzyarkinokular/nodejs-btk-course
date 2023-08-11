@@ -6,11 +6,11 @@ const Category = require("../models/category.js");
 /* ---- getProducts ----  */
 
 exports.getProducts = (req, res) => {
-  Product.getAll()
+  Product.findAll()
     .then((products) => {
       res.render("admin/products", {
         title: "Admin Products",
-        products: products[0],
+        products: products,
         action: req.query.action,
         path: "/admin/products",
       });
@@ -84,7 +84,7 @@ exports.postAddProduct = (req, res) => {
   prd
     .save()
     .then((result) => {
-      console.log(result);
+      res.redirect("/");
     })
     .catch((err) => {
       console.log(err);
