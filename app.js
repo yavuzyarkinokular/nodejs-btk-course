@@ -24,15 +24,17 @@ app.use("/admin", adminRoutes); // url 'e /admin eklentisini bu şekilde yapıyo
 app.use(userRoutes);
 app.use(errorController.get404Page); // 404 Hata Sayfasına Yönlendirme
 /* ---- MiddlWare Bitiş ----  */
-
+/* ---- Sequelize ----   */
 sequelize
-  .sync()
+  .sync() //Tabloların oluşturulmasına yarar
   .then((result) => {
     console.log(result);
   })
   .catch((err) => {
     console.log(err);
   });
+/* ---- Sequelize Bitiş ----   */
+
 /* ---- Port Numarası Belirleme ---- */
 app.listen(3000, () => {
   console.log("listening port number is 3000");
