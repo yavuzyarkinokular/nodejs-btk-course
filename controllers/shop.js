@@ -5,22 +5,10 @@ const Category = require("../models/category.js");
 
 /* ---- getIndex ----  */
 exports.getIndex = (req, res) => {
-  Product.getAll()
-    .then((products) => {
-      Category.getAll()
-        .then((categories) => {
-          res.render("shop/index", {
-            title: "Shopping",
-            products: products[0],
-            categories: categories[0],
-            path: "/",
-          });
-        })
-        .catch((err) => {});
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  res.render("shop/index", {
+    title: "Shopping",
+    path: "/",
+  });
 };
 /* ---- getIndex Bitiş ----  */
 
