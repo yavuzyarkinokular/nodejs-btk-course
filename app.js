@@ -5,7 +5,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const userRoutes = require("./routes/shop.js"); // Ana dizin olan index.html yönlendirmesini burada yapıyoruz
 const adminRoutes = require("./routes/admin.js"); // add-product olan kısım
-const connection = require("./utility/database.js"); //database
+const sequelize = require("./utility/database.js"); //database
 /* ---- Import Bitiş ---   */
 
 /* ---- Error Controler ---   */
@@ -25,6 +25,14 @@ app.use(userRoutes);
 app.use(errorController.get404Page); // 404 Hata Sayfasına Yönlendirme
 /* ---- MiddlWare Bitiş ----  */
 
+sequelize
+  .sync()
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 /* ---- Port Numarası Belirleme ---- */
 app.listen(3000, () => {
   console.log("listening port number is 3000");
