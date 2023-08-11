@@ -5,8 +5,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const userRoutes = require("./routes/shop.js"); // Ana dizin olan index.html yönlendirmesini burada yapıyoruz
 const adminRoutes = require("./routes/admin.js"); // add-product olan kısım
-const connection = require("./utility/database.js"); //databaes
-const sequelize = require("./utility/database.js"); //sequelize
+const connection = require("./utility/database.js"); //database
 /* ---- Import Bitiş ---   */
 
 /* ---- Error Controler ---   */
@@ -31,18 +30,6 @@ app.listen(3000, () => {
   console.log("listening port number is 3000");
 });
 /* ---- Port Numarası Belirleme Bitiş ---- */
-
-/* ---- Sequelize ---- */
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log("Connection has been established successfully.");
-  })
-  .catch((err) => {
-    console.error("Unable to connect to the database:", err);
-  });
-
-/* ---- Sequelize Bitiş ---- */
 
 /*
             ------- NOTLAR -------
