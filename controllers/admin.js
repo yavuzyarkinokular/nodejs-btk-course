@@ -34,14 +34,17 @@ exports.getAddProduct = (req, res, next) => {
 /* ---- getEditProduct ----  */
 
 exports.getEditProduct = (req, res, next) => {
-  Product.getById(req.params.productid)
-    .then((products) => {
-      Category.getAll()
+  Product.findAll({
+    attributes: ["id", "name", "price", "imageUrl"],
+    where: { id: req.params.productid },
+  })
+    .then((product) => {
+      Category.findAll()
         .then((categories) => {
           res.render("admin/edit-product", {
-            title: products[0][0].name, //0 ıncı indeksin 0 ıncı indeksindeki elemanını al anlmaına gelir
-            product: products[0][0],
-            categories: categories[0],
+            title: product[0].name, //0 ıncı indeksin 0 ıncı indeksindeki elemanını al anlmaına gelir
+            product: product[0],
+            categories: categories,
             path: "/products",
           });
         })
@@ -50,8 +53,27 @@ exports.getEditProduct = (req, res, next) => {
         });
     })
     .catch((err) => {
-      console.log(err);
+      console.log("Product üzerinden gelen hata");
     });
+
+  // Product.findByPk(req.params.productid)
+  //   .then((product) => {
+  //     Category.findAll()
+  //       .then((categories) => {
+  //         res.render("admin/edit-product", {
+  //           title: product.name, //0 ıncı indeksin 0 ıncı indeksindeki elemanını al anlmaına gelir
+  //           product: product,
+  //           categories: categories,
+  //           path: "/products",
+  //         });
+  //       })
+  //       .catch((err) => {
+  //         console.log("Hata:", err);
+  //       });
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
 };
 /* ---- getEditProduct Bitiş ----  */
 

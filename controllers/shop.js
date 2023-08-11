@@ -5,7 +5,9 @@ const Category = require("../models/category.js");
 
 /* ---- getIndex ----  */
 exports.getIndex = (req, res) => {
-  Product.findAll()
+  Product.findAll({
+    attributes: ["id", "name", "price", "imageUrl", "description"],
+  })
     .then((products) => {
       Category.findAll()
         .then((categories) => {
@@ -29,7 +31,9 @@ exports.getIndex = (req, res) => {
 /* ---- getProducts ----  */
 
 exports.getProducts = (req, res) => {
-  Product.findAll()
+  Product.findAll({
+    attributes: ["id", "name", "price", "imageUrl", "description"],
+  })
     .then((products) => {
       Category.findAll()
         .then((categories) => {
@@ -65,24 +69,6 @@ exports.getProductsByCategoryId = (req, res) => {
 };
 /* ---- getProductsByCategoryId Bitiş ----  */
 
-/* ---- getProduct ----  */
-// Id bilgisi alarak kullanıcıyı seçtiği ürüne yönlendirme
-
-exports.getProduct = (req, res) => {
-  Product.getById(req.params.productid)
-    .then((products) => {
-      res.render("shop/product-detail", {
-        title: products[0][0].name, //0 ıncı indeksin 0 ıncı indeksindeki elemanını al anlmaına gelir
-        product: products[0][0],
-        path: "/products",
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-/* ---- getProduct Bitiş ----  */
-
 /* ---- getProductDetails ----  */
 
 exports.getProductDetails = (req, res) => {
@@ -93,6 +79,43 @@ exports.getProductDetails = (req, res) => {
   });
 };
 /* ---- getProductDetails Bitiş ----  */
+
+/* ---- getProduct // Detail ----  */
+// Id bilgisi alarak kullanıcıyı seçtiği ürüne yönlendirme
+
+exports.getProduct = (req, res) => {
+  Product.findAll({
+    attributes: ["id", "name", "price", "imageUrl", "description"],
+    where: { id: req.params.productid },
+  })
+    .then((product) => {
+      Category.findAll()
+        .then((categories) => {
+          res.render("shop/product-detail", {
+            title: product[0].name, //0 ıncı indeksin 0 ıncı indeksindeki elemanını al anlmaına gelir
+            product: product[0],
+            categories: categories,
+            path: "/products",
+          });
+        })
+        .catch((err) => {
+          console.log("90 ncı satırda hata var  ");
+        });
+    })
+    .catch((err) => {});
+  // Product.findByPk(req.params.productid)
+  //   .then((product) => {
+  //     res.render("shop/product-detail", {
+  //       title: product.name, //0 ıncı indeksin 0 ıncı indeksindeki elemanını al anlmaına gelir
+  //       product: product,
+  //       path: "/products",
+  //     });
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+};
+/* ---- getProduct Bitiş // Detail ----  */
 
 /* ---- getCart ----  */
 
