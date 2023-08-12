@@ -10,6 +10,7 @@ const errorController = require("./controllers/errors.js");
 
 const Category = require("./models/category");
 const Product = require("./models/products");
+const User = require("./models/user");
 /* ---- Import Bitiş ---   */
 
 /* ---- Pug Dosyalar ---- */
@@ -33,37 +34,54 @@ Product.belongsTo(Category, {
   },
 });
 Category.hasMany(Product);
+Product.belongsTo(User);
+User.hasMany(Product);
 /* ---- Bire Çok İlişki Kurma Bitiş ----  */
 
 /* ---- Sequelize ----   */
 sequelize
-  .sync()
+  .sync({ force: true })
   .then(() => {
-    Category.count()
-      .then((count) => {
-        if (count === 0) {
-          Category.bulkCreate([
-            {
-              name: "Telefon",
-              description: "Telefon kategorisidir",
-            },
-            {
-              name: "Bilgisayar",
-              description: "Bilgisayar kategorisidir",
-            },
-            {
-              name: "Beyaz Eşya",
-              description: "Beyaz Eşya  kategorisidir",
-            },
-            {
-              name: "Tablet",
-              description: "Tablet kategorisidir",
-            },
-          ]);
+    User.findByPk(1)
+      .then((user) => {
+        if (!user) {
+          User.create({
+            name: "Yavuz Yarkın Okular",
+            mail: "yarkinokular@gmail.com",
+          });
         }
+        return user;
+      })
+      .then((user) => {
+        Category.count()
+          .then((count) => {
+            if (count === 0) {
+              Category.bulkCreate([
+                {
+                  name: "Telefon",
+                  description: "Telefon kategorisidir",
+                },
+                {
+                  name: "Bilgisayar",
+                  description: "Bilgisayar kategorisidir",
+                },
+                {
+                  name: "Beyaz Eşya",
+                  description: "Beyaz Eşya  kategorisidir",
+                },
+                {
+                  name: "Tablet",
+                  description: "Tablet kategorisidir",
+                },
+              ]);
+            }
+          })
+          .catch((err) => {
+            console.log("Hata .count bloğu içerisinde");
+          });
       })
       .catch((err) => {
-        console.log("Hata .count bloğu içerisinde");
+        console.log("Hata User.findByPk bloğu içerisinde");
       });
   })
   .catch((err) => {
