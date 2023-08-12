@@ -109,7 +109,7 @@ exports.postAddProduct = (req, res) => {
   prd
     .save()
     .then((result) => {
-      res.redirect("/");
+      res.redirect("/products");
     })
     .catch((err) => {
       console.log(err);
