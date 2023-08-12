@@ -37,12 +37,34 @@ Category.hasMany(Product);
 
 /* ---- Sequelize ----   */
 sequelize
-  .sync({
-    //Tabloların oluşturulmasına yarar
-    force: true, // Kurduğumuz ilişkileri database 'e uydurmak için gereklidir.
-  })
-  .then((result) => {
-    console.log(result);
+  .sync()
+  .then(() => {
+    Category.count()
+      .then((count) => {
+        if (count === 0) {
+          Category.bulkCreate([
+            {
+              name: "Telefon",
+              description: "Telefon kategorisidir",
+            },
+            {
+              name: "Bilgisayar",
+              description: "Bilgisayar kategorisidir",
+            },
+            {
+              name: "Beyaz Eşya",
+              description: "Beyaz Eşya  kategorisidir",
+            },
+            {
+              name: "Tablet",
+              description: "Tablet kategorisidir",
+            },
+          ]);
+        }
+      })
+      .catch((err) => {
+        console.log("Hata .count bloğu içerisinde");
+      });
   })
   .catch((err) => {
     console.log(err);

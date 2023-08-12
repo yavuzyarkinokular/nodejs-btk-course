@@ -57,15 +57,26 @@ exports.getProducts = (req, res) => {
 
 exports.getProductsByCategoryId = (req, res) => {
   const categoryid = req.params.categoryid;
-  const getAllProduct = Product.getProductsByCategoryId(categoryid);
-  const getAllCategory = Category.getAll();
-  res.render("shop/products", {
-    title: "Products",
-    products: getAllProduct,
-    categories: getAllCategory,
-    selectedCategory: categoryid,
-    path: "/products",
-  });
+  const model = [];
+
+  Category.findAll()
+    .then((categories) => {
+      model.categories = categories;
+      const category = categories.find((i) => i.id == categoryid);
+      return category.getProducts();
+    })
+    .then((products) => {
+      res.render("shop/products", {
+        title: "Products",
+        products: products,
+        categories: model.categories,
+        selectedCategory: categoryid,
+        path: "/products",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 /* ---- getProductsByCategoryId Bitiş ----  */
 

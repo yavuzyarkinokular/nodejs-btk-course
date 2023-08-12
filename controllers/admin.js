@@ -24,10 +24,17 @@ exports.getProducts = (req, res) => {
 /* ---- getAddProduct ----  */
 
 exports.getAddProduct = (req, res, next) => {
-  res.render("admin/add-product", {
-    title: " New Product",
-    path: "/admin/add-product",
-  });
+  Category.findAll()
+    .then((categories) => {
+      res.render("admin/add-product", {
+        title: " New Product",
+        path: "/admin/add-product",
+        categories: categories,
+      });
+    })
+    .catch((err) => {
+      console.log("Hata:", err);
+    });
 };
 /* ---- getAddProduct Bitiş ----  */
 
@@ -58,25 +65,6 @@ exports.getEditProduct = (req, res) => {
     .catch((err) => {
       console.log("Product üzerinden gelen hata");
     });
-
-  // Product.findByPk(req.params.productid)
-  //   .then((product) => {
-  //     Category.findAll()
-  //       .then((categories) => {
-  //         res.render("admin/edit-product", {
-  //           title: product.name, //0 ıncı indeksin 0 ıncı indeksindeki elemanını al anlmaına gelir
-  //           product: product,
-  //           categories: categories,
-  //           path: "/products",
-  //         });
-  //       })
-  //       .catch((err) => {
-  //         console.log("Hata:", err);
-  //       });
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
 };
 /* ---- getEditProduct Bitiş ----  */
 
@@ -88,27 +76,16 @@ exports.postAddProduct = (req, res) => {
   const price = req.body.price;
   const imageUrl = req.body.imageUrl;
   const description = req.body.description;
-  // Product.create({
-  //   name: name,
-  //   price: price,
-  //   imageUrl: imageUrl,
-  //   description: description,
-  // })
-  //   .then((result) => {
-  //     console.log(result);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-  const prd = Product.build({
+  const categoryid = req.body.categoryid;
+  Product.create({
     name: name,
     price: price,
     imageUrl: imageUrl,
     description: description,
-  });
-  prd
-    .save()
+    categoryId: categoryid,
+  })
     .then((result) => {
+      console.log(result);
       res.redirect("/products");
     })
     .catch((err) => {
@@ -134,6 +111,7 @@ exports.postEditProduct = (req, res) => {
       product.description = description;
       product.price = price;
       product.imageUrl = imageUrl;
+      product.categoryId = categoryid;
       return product.save();
     })
     .then((result) => {
