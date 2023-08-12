@@ -3,14 +3,14 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
-const userRoutes = require("./routes/shop.js"); // Ana dizin olan index.html yönlendirmesini burada yapıyoruz
+const shopRoutes = require("./routes/shop.js"); // Ana dizin olan index.html yönlendirmesini burada yapıyoruz
 const adminRoutes = require("./routes/admin.js"); // add-product olan kısım
 const sequelize = require("./utility/database.js"); //database
-/* ---- Import Bitiş ---   */
-
-/* ---- Error Controler ---   */
 const errorController = require("./controllers/errors.js");
-/* ----  Error Controller Bitiş ---   */
+
+const Category = require("./models/category");
+const Product = require("./models/products");
+/* ---- Import Bitiş ---   */
 
 /* ---- Pug Dosyalar ---- */
 app.set("view engine", "pug");
@@ -19,14 +19,28 @@ app.set("views", "./views");
 
 /* ---- MiddlWare ----  */
 app.use(express.static(path.join(__dirname, "public")));
-app.use(bodyParser.urlencoded({ extended: false })); // !!! Açıklaması detaylıca en aşağıda !!!
+app.use(bodyParser.urlencoded({ extended: false })); // !!! Açıklama aşağıda!!!
 app.use("/admin", adminRoutes); // url 'e /admin eklentisini bu şekilde yapıyoruz
-app.use(userRoutes);
+app.use(shopRoutes);
 app.use(errorController.get404Page); // 404 Hata Sayfasına Yönlendirme
 /* ---- MiddlWare Bitiş ----  */
+
+/* ---- Bire Çok İlişki Kurma  açıklaması aşağıda ----  */
+Product.belongsTo(Category, {
+  foreignKey: {
+    //null değer dönmemesi için
+    allowNull: false,
+  },
+});
+Category.hasMany(Product);
+/* ---- Bire Çok İlişki Kurma Bitiş ----  */
+
 /* ---- Sequelize ----   */
 sequelize
-  .sync() //Tabloların oluşturulmasına yarar
+  .sync({
+    //Tabloların oluşturulmasına yarar
+    force: true, // Kurduğumuz ilişkileri database 'e uydurmak için gereklidir.
+  })
   .then((result) => {
     console.log(result);
   })
@@ -47,6 +61,7 @@ app.listen(3000, () => {
 _ urlEncoded ile JSON benzeri dosya oluşturulur. _
 _ Varsayılan extended değeri true 'dur. JSON benzeri dosya elde etmek istiyorsak bunu false yapmalıyız. Aksi takdirde querystring değeri oluşturamayız. _
 _ Yukarıda ki methodoloji querystring ile bufferdan nesne oluşturmaya yarar aslında. Chunk bir buffer code oluşturur ve biz buffer code u daha anlaşılır olması  için string değere çevirip obje türetiriz. _ 
+- Bire çok ilişki kurmanın amacı bir tablo içerisinde başka bir tablodaki veriyi kuruyorsak bunu sequelize 'a bildirmemiz gerekir. Bunun içinde sequelize içerisinde ki birkaç methoda ihtiyaç duyuyoruz
 
 
 
