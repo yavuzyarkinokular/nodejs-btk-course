@@ -33,12 +33,15 @@ exports.getAddProduct = (req, res, next) => {
 
 /* ---- getEditProduct ----  */
 
-exports.getEditProduct = (req, res, next) => {
+exports.getEditProduct = (req, res) => {
   Product.findAll({
     attributes: ["id", "name", "price", "imageUrl"],
     where: { id: req.params.productid },
   })
     .then((product) => {
+      if (!product) {
+        return res.redirect("/");
+      }
       Category.findAll()
         .then((categories) => {
           res.render("admin/edit-product", {
@@ -118,20 +121,27 @@ exports.postAddProduct = (req, res) => {
 // Veri tabanından gelen bilgiyi güncelleyeceğimiz için req.body.productid dedik
 
 exports.postEditProduct = (req, res) => {
-  const product = new Product();
-  product.name = req.body.name;
-  product.price = req.body.price;
-  product.imageUrl = req.body.imageUrl;
-  product.description = req.body.description;
-  product.categoryid = req.body.categoryid;
-  product.id = req.body.id;
+  const name = req.body.name;
+  const price = req.body.price;
+  const imageUrl = req.body.imageUrl;
+  const description = req.body.description;
+  const categoryid = req.body.categoryid;
+  const id = req.body.id;
 
-  Product.Update(product)
-    .then(() => {
+  Product.findByPk(id)
+    .then((product) => {
+      product.name = name;
+      product.description = description;
+      product.price = price;
+      product.imageUrl = imageUrl;
+      return product.save();
+    })
+    .then((result) => {
+      console.log("Log updated");
       res.redirect("/admin/products?action=edit"); // işlem bitince kullanıcıyı istediğimiz dizine yönlendirmeye yarar
     })
     .catch((err) => {
-      console.log("postedit", err);
+      console.log("Hata postEditProduct içerisinde dikkatli bak");
     });
 };
 /* ---- postEditProduct Bitiş ----  */
