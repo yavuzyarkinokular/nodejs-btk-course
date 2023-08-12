@@ -148,12 +148,14 @@ exports.postEditProduct = (req, res) => {
 
 /* ---- postDeleteProduct  ----  */
 exports.postDeleteProduct = (req, res) => {
-  const product = Product.deleteById(req.body.productid)
+  const id = req.body.productid;
+  Product.destroy({ where: { id: id } }) //id bilgisi dışarıdan gelen id bilgisi diye belirtiyoruz
     .then(() => {
-      res.redirect("/admin/products?action=deleted");
+      res.redirect("/admin/products?action=delete");
     })
     .catch((err) => {
-      console.log("Hata:", err);
+      console.log("Hata postDeleteProduct içerisinde dikkatli bak");
     });
 };
+
 /* ---- postDeleteProduct  Bitiş----  */
