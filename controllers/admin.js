@@ -77,12 +77,14 @@ exports.postAddProduct = (req, res) => {
   const imageUrl = req.body.imageUrl;
   const description = req.body.description;
   const categoryid = req.body.categoryid;
+  const user = req.user;
   Product.create({
     name: name,
     price: price,
     imageUrl: imageUrl,
     description: description,
     categoryId: categoryid,
+    userId: user.id,
   })
     .then((result) => {
       console.log(result);

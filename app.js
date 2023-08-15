@@ -19,6 +19,16 @@ app.set("views", "./views");
 /* ---- Pug Dosyalar Bitiş ---- */
 
 /* ---- MiddlWare ----  */
+app.use((req, res, next) => {
+  User.findByPk(1)
+    .then((user) => {
+      req.user = user;
+      next();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: false })); // !!! Açıklama aşağıda!!!
 app.use("/admin", adminRoutes); // url 'e /admin eklentisini bu şekilde yapıyoruz
@@ -40,7 +50,7 @@ User.hasMany(Product);
 
 /* ---- Sequelize ----   */
 sequelize
-  .sync({ force: true })
+  .sync()
   .then(() => {
     User.findByPk(1)
       .then((user) => {
