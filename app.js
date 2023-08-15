@@ -11,6 +11,8 @@ const errorController = require("./controllers/errors.js");
 const Category = require("./models/category");
 const Product = require("./models/products");
 const User = require("./models/user");
+const Cart = require("./models/cart");
+const CartItem = require("./models/cartItem");
 /* ---- Import Bitiş ---   */
 
 /* ---- Pug Dosyalar ---- */
@@ -46,11 +48,16 @@ Product.belongsTo(Category, {
 Category.hasMany(Product);
 Product.belongsTo(User);
 User.hasMany(Product);
+User.hasOne(Cart);
+Cart.belongsTo(User);
+
+Cart.belongsToMany(Product, { through: CartItem });
+Product.belongsToMany(Cart, { through: CartItem });
 /* ---- Bire Çok İlişki Kurma Bitiş ----  */
 
 /* ---- Sequelize ----   */
 sequelize
-  .sync()
+  .sync({ force: true })
   .then(() => {
     User.findByPk(1)
       .then((user) => {
