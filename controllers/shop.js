@@ -208,3 +208,22 @@ exports.postCart = (req, res, next) => {
     });
 };
 /* ---- postCart Bitiş ----  */
+/* ---- postCartItemDelete  ----  */
+
+exports.postCartItemDelete = (req, res) => {
+  const productid = req.body.productid;
+
+  req.user
+    .getCart()
+    .then((cart) => {
+      return cart.getProducts({ where: { id: productid } });
+    })
+    .then((products) => {
+      const product = products[0];
+      return product.cartItem.destroy();
+    })
+    .then((result) => {
+      res.redirect("/cart");
+    });
+};
+/* ---- postCartItemDelete Bitiş ----  */
