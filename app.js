@@ -56,54 +56,43 @@ Product.belongsToMany(Cart, { through: CartItem });
 /* ---- Bire Çok İlişki Kurma Bitiş ----  */
 
 /* ---- Sequelize ----   */
+let _user;
 sequelize
-  .sync({ force: true })
+  .sync()
   .then(() => {
     User.findByPk(1)
       .then((user) => {
         if (!user) {
-          User.create({
-            name: "Yavuz Yarkın Okular",
-            mail: "yarkinokular@gmail.com",
-          });
+          return User.create({ name: "sadikturan", email: "email@gmail.com" });
         }
         return user;
       })
       .then((user) => {
-        Category.count()
-          .then((count) => {
-            if (count === 0) {
-              Category.bulkCreate([
-                {
-                  name: "Telefon",
-                  description: "Telefon kategorisidir",
-                },
-                {
-                  name: "Bilgisayar",
-                  description: "Bilgisayar kategorisidir",
-                },
-                {
-                  name: "Beyaz Eşya",
-                  description: "Beyaz Eşya  kategorisidir",
-                },
-                {
-                  name: "Tablet",
-                  description: "Tablet kategorisidir",
-                },
-              ]);
-            }
-          })
-          .catch((err) => {
-            console.log("Hata .count bloğu içerisinde");
-          });
+        _user = user;
+        return user.getCart();
       })
-      .catch((err) => {
-        console.log("Hata User.findByPk bloğu içerisinde");
+      .then((cart) => {
+        if (!cart) {
+          return _user.createCart();
+        }
+        return cart;
+      })
+      .then(() => {
+        Category.count().then((count) => {
+          if (count === 0) {
+            Category.bulkCreate([
+              { name: "Telefon", description: "telefon kategorisi" },
+              { name: "Bilgisayar", description: "bilgisayar kategorisi" },
+              { name: "Elektronik", description: "elektronik kategorisi" },
+            ]);
+          }
+        });
       });
   })
   .catch((err) => {
     console.log(err);
   });
+
 /* ---- Sequelize Bitiş ----   */
 
 /* ---- Port Numarası Belirleme ---- */
