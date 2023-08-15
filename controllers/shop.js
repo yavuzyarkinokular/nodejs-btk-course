@@ -168,10 +168,11 @@ exports.getOrders = (req, res) => {
 
 /* ---- postCart ----  */
 
-exports.postCart = (req, res) => {
+exports.postCart = (req, res, next) => {
   const productId = req.body.productId;
   let quantity = 1;
   let userCart;
+
   req.user
     .getCart()
     .then((cart) => {
@@ -180,9 +181,11 @@ exports.postCart = (req, res) => {
     })
     .then((products) => {
       let product;
-      if (products.lenght > 0) {
+
+      if (products.length > 0) {
         product = products[0];
       }
+
       if (product) {
         quantity += product.cartItem.quantity;
         return product;
