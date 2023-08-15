@@ -137,6 +137,7 @@ exports.getCart = (req, res) => {
       return cart
         .getProducts()
         .then((products) => {
+          console.log(products);
           res.render("shop/cart", {
             title: "Cart",
             path: "/cart",
